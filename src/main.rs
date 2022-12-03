@@ -1,5 +1,6 @@
 pub mod day01;
 pub mod day02;
+pub mod day03;
 
 use clap::Parser;
 
@@ -17,6 +18,7 @@ fn main() {
     match args.day_chosen {
         1 => day01::run(),
         2 => day02::run(),
+        3 => day03::run(),
         _ => println!("Invalid day chosen.")
     }
 
