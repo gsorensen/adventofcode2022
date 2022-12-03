@@ -73,10 +73,10 @@ impl FromIterator<ElfInventory> for Expedition {
     }
 }
 
-pub fn run() {
+pub fn main() {
     println!("Day 01 - Problem 1");
     let contents =
-        fs::read_to_string("src/day01/calories.txt").expect("Should have been able to read input");
+        fs::read_to_string("src/inputs/day01.txt").expect("Should have been able to read input");
 
     let expedition = contents
         .split("\n\n")

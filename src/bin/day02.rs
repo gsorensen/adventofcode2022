@@ -107,9 +107,9 @@ fn determine_score(player_choice: &Choice, outcome: &Outcome) -> u32 {
     choice_score + outcome_score
 }
 
-pub fn run() {
+pub fn main() {
     println!("Day 02 - Problem 1");
-    let contents = fs::read_to_string("src/day02/strategy_guide.txt")
+    let contents = fs::read_to_string("src/inputs/day02.txt")
         .expect("Should have been able to read file");
     let data_points = contents.split("\n");
 

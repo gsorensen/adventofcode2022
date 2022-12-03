@@ -69,7 +69,7 @@ impl Rucksack {
         self.first_compartment.items
             .iter()
             .filter(|&i| self.second_compartment.has_item(i))
-            .map(|i| { i.priority })
+            .map(|i| i.priority)
             .collect::<HashSet<_>>()
             .into_iter()
             .collect::<Vec<u32>>()
@@ -116,8 +116,8 @@ impl Group {
     }
 }
 
-pub fn run() {
-    let data = fs::read_to_string("src/day03/rugsack_inventories.txt")
+pub fn main() {
+    let data = fs::read_to_string("src/inputs/day03.txt")
         .expect("Should have been able to read input")
         .split("\n")
         .filter_map(|s| Rucksack::from(s))
