@@ -74,7 +74,6 @@ impl FromIterator<ElfInventory> for Expedition {
 }
 
 pub fn main() {
-    println!("Day 01 - Problem 1");
     let contents =
         fs::read_to_string("src/inputs/day01.txt").expect("Should have been able to read input");
 
@@ -86,17 +85,15 @@ pub fn main() {
     let max_calories = expedition.max_calorie_sum().expect("Should be a max value");
 
     println!(
-        "Most calories of food carried by one elf is {}",
+        "Most calories of food carried by one elf: {}",
         max_calories
     );
-
-    println!("Day 01 - Problem 2");
 
     let max_three_calorie_sums = expedition.max_n_calorie_sums(3);
     let calorie_total: u32 = max_three_calorie_sums.iter().sum();
 
     println!(
-        "Total amount of calories of food carried by the three hardest-working elves is {}",
+        "Total amount of calories of food carried by the three hardest-working elves: {}",
         calorie_total
     );
 }

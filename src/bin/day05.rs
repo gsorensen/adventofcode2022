@@ -60,13 +60,13 @@ impl Stack {
 }
 
 #[derive(Debug)]
-struct Stacks {
+struct Crane {
     stacks: Vec<Stack>,
 }
 
-impl Stacks {
-    fn from(stacks: Vec<Stack>) -> Stacks {
-        Stacks { stacks }
+impl Crane {
+    fn from(stacks: Vec<Stack>) -> Crane {
+        Crane { stacks }
     }
 
     fn push_at(&mut self, index: usize, item: char) {
@@ -91,7 +91,8 @@ impl Stacks {
     }
 
     fn perform_9001(&mut self, instruction: &Instruction) {
-        let crates_to_move = self.pop_multiple_at_in_order(instruction.start_stack - 1, instruction.crates_to_move);
+        let crates_to_move =
+            self.pop_multiple_at_in_order(instruction.start_stack - 1, instruction.crates_to_move);
 
         for c in crates_to_move.iter() {
             self.push_at(instruction.target_stack - 1, *c);
@@ -107,7 +108,7 @@ impl Stacks {
     }
 }
 
-impl FromStr for Stacks {
+impl FromStr for Crane {
     type Err = anyhow::Error;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
@@ -125,19 +126,19 @@ impl FromStr for Stacks {
             None => unreachable!("Shouldn't happen"),
         };
 
-        let mut stacks = Stacks::from(vec![Stack { crates: vec![] }; stack_indices.len()]);
+        let mut crane = Crane::from(vec![Stack { crates: vec![] }; stack_indices.len()]);
 
         while let Some(line) = it.next() {
             for (index, stack_index) in stack_indices.iter().enumerate() {
                 let item = line.chars().nth(*stack_index);
                 match item {
-                    Some(item) if item.is_alphabetic() => stacks.push_at(index, item),
+                    Some(item) if item.is_alphabetic() => crane.push_at(index, item),
                     _ => continue,
                 }
             }
         }
 
-        Ok(stacks)
+        Ok(crane)
     }
 }
 
@@ -146,10 +147,8 @@ fn main() -> Result<(), anyhow::Error> {
         .split_once("\n\n")
         .unwrap();
 
-    println!("Drawing of stacks:\n{}", drawing_str);
-
-    let mut stacks = drawing_str.parse::<Stacks>()?;
-    let mut stacks_9001 = drawing_str.parse::<Stacks>()?; 
+    let mut crane_9000 = drawing_str.parse::<Crane>()?;
+    let mut crane_9001 = drawing_str.parse::<Crane>()?;
 
     let instructions = instructions_str
         .lines()
@@ -163,15 +162,21 @@ fn main() -> Result<(), anyhow::Error> {
         .collect::<Vec<Instruction>>();
 
     for instruction in instructions {
-        stacks.perform_9000(&instruction);
-        stacks_9001.perform_9001(&instruction);
+        crane_9000.perform_9000(&instruction);
+        crane_9001.perform_9001(&instruction);
     }
 
-    let top_crates = stacks.display_top_crates();
-    let top_crates_9001 = stacks_9001.display_top_crates();
+    let top_crates = crane_9000.display_top_crates();
+    let top_crates_9001 = crane_9001.display_top_crates();
 
-    println!("{:?}", top_crates);
-    println!("{:?}", top_crates_9001);
+    println!(
+        "Crates on top of each stack when using the 9000: {}",
+        top_crates
+    );
+    println!(
+        "Crates on top of each stack when using the 9001: {}",
+        top_crates_9001
+    );
 
     Ok(())
 }

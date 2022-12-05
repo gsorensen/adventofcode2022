@@ -123,8 +123,6 @@ pub fn main() {
         .filter_map(|s| Rucksack::from(s))
         .collect::<Vec<Rucksack>>();
 
-    println!("Day 03 - Problem 1");
-    
     let priority_sum_total = data 
         .iter()
         .map(|rucksack| 
@@ -136,8 +134,6 @@ pub fn main() {
         .sum::<u32>();
     
     println!("Sum of priorities in both compartments: {}", priority_sum_total);
-
-    println!("Day 03 - Problem 2");
 
     let group_priority_sum_total = data 
         .chunks(3)

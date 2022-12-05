@@ -108,7 +108,6 @@ fn determine_score(player_choice: &Choice, outcome: &Outcome) -> u32 {
 }
 
 pub fn main() {
-    println!("Day 02 - Problem 1");
     let contents = fs::read_to_string("src/inputs/day02.txt")
         .expect("Should have been able to read file");
     let data_points = contents.split("\n");
@@ -138,11 +137,9 @@ pub fn main() {
         .sum::<u32>();
 
     println!(
-        "Your total score before the encryption scheme is known is {}",
+        "Your total score before the encryption scheme is known: {}",
         total_score
     );
-
-    println!("Day 02 - Problem 2");
 
     let necessary_outcomes = &data_points
         .clone()
@@ -161,7 +158,7 @@ pub fn main() {
         .sum::<u32>();
 
     println!(
-        "Your total score before the encryption scheme is known is {}",
+        "Your total score after the encryption scheme is known: {}",
         total_score_new
     );
 }
